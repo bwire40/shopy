@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GuestController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,13 @@ Route::get('/home', [GuestController::class, 'index'])->name('home');
 Route::get('/about', [GuestController::class, 'about'])->name('about');
 Route::get('/contact', [GuestController::class, 'contact'])->name('contact');
 
+
+// products
+Route::resource('products', ProductController::class)
+    ->only(['index', 'store'])
+    ->middleware(['auth', 'admin', 'verified']);
+
+Route::get('/products/create', [ProductController::class, 'create'])->name('create');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

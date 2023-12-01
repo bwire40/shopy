@@ -35,7 +35,12 @@
                         <x-slot name="trigger">
                             <button
                                 class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
-                                {{-- <div>{{ Auth::user()->name }}</div> --}}
+                                @auth
+                                    <div class="mx-2">
+                                        <h1 class="font-bold hover:text-slate-600">{{ Auth::user()->name }}</h1>
+                                    </div>
+                                @endauth
+
 
                                 <div class="ms-1">
                                     <svg class="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg"
@@ -49,20 +54,27 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <x-dropdown-link :href="route('profile.edit')">
-                                {{ __('Profile') }}
-                            </x-dropdown-link>
-
-                            <!-- Authentication -->
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-
-                                <x-dropdown-link :href="route('logout')"
-                                    onclick="event.preventDefault();
-                                                this.closest('form').submit();">
-                                    {{ __('Log Out') }}
+                            @auth
+                                <x-dropdown-link :href="route('profile.edit')">
+                                    {{ __('Profile') }}
                                 </x-dropdown-link>
-                            </form>
+                                <!-- Authentication -->
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+
+                                    <x-dropdown-link :href="route('logout')"
+                                        onclick="event.preventDefault();
+                                                this.closest('form').submit();">
+                                        {{ __('Log Out') }}
+                                    </x-dropdown-link>
+                                </form>
+                            @else
+                                <div class="flex flex-col justify-center items-start px-4">
+                                    <a class="font-bold hover:text-slate-400" href="{{ route('login') }}">Login</a>
+                                    <a class="font-bold hover:text-slate-400" href="{{ route('register') }}">Register</a>
+                                </div>
+                            @endauth
+
                         </x-slot>
                     </x-dropdown>
                 </div>

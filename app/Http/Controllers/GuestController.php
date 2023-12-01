@@ -30,6 +30,8 @@ class GuestController extends Controller
                 redirect()->back();
             }
         }
+
+        return view("pages.home");
     }
     public function about(Request $request)
     {

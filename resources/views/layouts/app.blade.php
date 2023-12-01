@@ -22,9 +22,24 @@
 
 <body>
 
+
     <!-- Page Content -->
     <main class="bg-gray-100 font-family-karla flex">
-        {{ $slot }}
+        @include('admin.partials.side_nav')
+        <div class="w-full flex flex-col h-screen overflow-y-hidden">
+
+            {{-- headers --}}
+            @include('admin.partials.header')
+            <div class="w-full overflow-x-hidden border-t flex flex-col">
+
+                {{ $slot }}
+
+                {{-- footer --}}
+                @include('admin.partials.footer')
+            </div>
+
+        </div>
+
     </main>
     {{-- </div> --}}
 
