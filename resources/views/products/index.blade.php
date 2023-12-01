@@ -4,7 +4,7 @@
 
 
 
-        <a href="{{ secure_url(route('create')) }}"
+        <a href="{{ secure_url(route('products.create')) }}"
             class="p-3 bg-slate-900 border-0 text-slate-50 text-lg shadow-lg transition-all duration-300 hover:bg-slate-300 hover:text-slate-900">+
             Add
             new Product</a>

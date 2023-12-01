@@ -9,10 +9,10 @@ return new class extends Migration
     /**
      * Run the migrations.
      * name
-     * price
      * foreign id
      * description
      * price
+     * discount
      * image
      */
     public function up(): void
@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->double('price');
+            $table->double('discount');
             $table->text('image')->nullable();
             $table->foreignId('user_id')->constrained()->cascadeOnDelete();
             $table->timestamps();

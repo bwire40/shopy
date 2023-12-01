@@ -32,6 +32,32 @@ class ProductController extends Controller
     {
         //create products
 
+        // 1. validate
+        $validated = $request->validate([
+            "name" => "required|max:20|min:5",
+            "description" => "required|max:100|min:5",
+            "price" => "required",
+            "image" => "required|image|mimes:png,jpg|max:5120",
+            "discount" => "min:0",
+        ]);
+
+
+        // 2. create image path
+
+        $imagePath = time() . '.' . $request->image->extension();
+        $request->image->storeAs('public/images', $imagePath);
+
+        // 3. store the product with user id
+
+        $request->user()->products()->create([
+            "name" => $validated["name"],
+            "description" => $validated["description"],
+            "price" => $validated["price"],
+            "image" => $imagePath,
+            "discount" => $validated["discount"],
+        ]);
+
+        return redirect()->route("products.index")->with("success", "Successfully Added the product!");
     }
 
     /**

@@ -27,10 +27,10 @@ Route::get('/contact', [GuestController::class, 'contact'])->name('contact');
 
 // products
 Route::resource('products', ProductController::class)
-    ->only(['index', 'store'])
+    ->only(['index', 'store', 'create'])
     ->middleware(['auth', 'admin', 'verified']);
 
-Route::get('/products/create', [ProductController::class, 'create'])->name('create');
+// Route::get('/products/create', [ProductController::class, 'create'])->name('create');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
