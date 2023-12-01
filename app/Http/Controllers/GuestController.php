@@ -31,4 +31,12 @@ class GuestController extends Controller
             }
         }
     }
+    public function about(Request $request)
+    {
+        return view("pages.about");
+    }
+    public function contact(Request $request)
+    {
+        return view("pages.contact");
+    }
 }

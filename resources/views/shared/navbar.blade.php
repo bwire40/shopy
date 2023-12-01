@@ -17,6 +17,8 @@
                             href="#">Shop</a></li>
                     <li><a class="inline-block no-underline hover:text-black hover:underline py-2 px-4"
                             href="#">About</a></li>
+                    <li><a class="inline-block no-underline hover:text-black hover:underline py-2 px-4"
+                            href="#">Contact</a></li>
                 </ul>
             </nav>
         </div>
@@ -24,26 +26,60 @@
         <div class="order-1 md:order-2">
             <a class="flex items-center tracking-wide no-underline hover:no-underline font-bold text-gray-800 text-xl "
                 href="#">
-                <svg class="fill-current text-gray-800 mr-2" xmlns="http://www.w3.org/2000/svg" width="24"
-                    height="24" viewBox="0 0 24 24">
-                    <path
-                        d="M5,22h14c1.103,0,2-0.897,2-2V9c0-0.553-0.447-1-1-1h-3V7c0-2.757-2.243-5-5-5S7,4.243,7,7v1H4C3.447,8,3,8.447,3,9v11 C3,21.103,3.897,22,5,22z M9,7c0-1.654,1.346-3,3-3s3,1.346,3,3v1H9V7z M5,10h2v2h2v-2h6v2h2v-2h2l0.002,10H5V10z" />
-                </svg>
-                NORDICS
+                <x-application-logo class="block h-9 w-auto fill-current text-gray-800" />
+                Shopy
             </a>
         </div>
 
         <div class="order-2 md:order-3 flex items-center" id="nav-content">
 
-            <a class="inline-block no-underline hover:text-black" href="#">
-                <svg class="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" width="24"
-                    height="24" viewBox="0 0 24 24">
-                    <circle fill="none" cx="12" cy="7" r="3" />
-                    <path
-                        d="M12 2C9.243 2 7 4.243 7 7s2.243 5 5 5 5-2.243 5-5S14.757 2 12 2zM12 10c-1.654 0-3-1.346-3-3s1.346-3 3-3 3 1.346 3 3S13.654 10 12 10zM21 21v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h2v-1c0-2.757 2.243-5 5-5h4c2.757 0 5 2.243 5 5v1H21z" />
-                </svg>
-            </a>
+            <!-- Navigation Links -->
+            <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
+                    {{ __('home') }}
+                </x-nav-link>
+            </div>
 
+
+            <!-- Settings Dropdown -->
+            <div class="hidden sm:flex sm:items-center sm:ms-6">
+                <x-dropdown align="right" width="48">
+                    <x-slot name="trigger">
+                        <button
+                            class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                            <div>{{ Auth::user()->name }} </div>
+
+                            <div class="ms-1">
+                                <svg class="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg"
+                                    width="24" height="24" viewBox="0 0 24 24">
+                                    <circle fill="none" cx="12" cy="7" r="3" />
+                                    <path
+                                        d="M12 2C9.243 2 7 4.243 7 7s2.243 5 5 5 5-2.243 5-5S14.757 2 12 2zM12 10c-1.654 0-3-1.346-3-3s1.346-3 3-3 3 1.346 3 3S13.654 10 12 10zM21 21v-1c0-3.859-3.141-7-7-7h-4c-3.86 0-7 3.141-7 7v1h2v-1c0-2.757 2.243-5 5-5h4c2.757 0 5 2.243 5 5v1H21z" />
+                                </svg>
+                            </div>
+                        </button>
+                    </x-slot>
+
+                    <x-slot name="content">
+                        <x-dropdown-link :href="route('profile.edit')">
+                            {{ __('Profile') }}
+                        </x-dropdown-link>
+
+                        <!-- Authentication -->
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+
+                            <x-dropdown-link :href="route('logout')"
+                                onclick="event.preventDefault();
+                                            this.closest('form').submit();">
+                                {{ __('Log Out') }}
+                            </x-dropdown-link>
+                        </form>
+                    </x-slot>
+                </x-dropdown>
+            </div>
+
+            {{-- cart --}}
             <a class="pl-3 inline-block no-underline hover:text-black" href="#">
                 <svg class="fill-current hover:text-black" xmlns="http://www.w3.org/2000/svg" width="24"
                     height="24" viewBox="0 0 24 24">

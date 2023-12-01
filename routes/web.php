@@ -20,6 +20,8 @@ Route::get('/', function () {
 });
 
 Route::get('/home', [GuestController::class, 'index'])->name('home');
+Route::get('/about', [GuestController::class, 'about'])->name('about');
+Route::get('/contact', [GuestController::class, 'contact'])->name('contact');
 
 
 Route::middleware('auth')->group(function () {

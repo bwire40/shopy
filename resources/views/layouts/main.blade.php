@@ -17,14 +17,8 @@
 
 <body class="bg-white text-gray-600 work-sans leading-normal text-base tracking-normal">
 
-    @include('shared.navbar')
-    {{-- @if (isset($header))
-        <header class="bg-white shadow">
-            <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                {{ $header }}
-            </div>
-        </header>
-    @endif --}}
+    @include('layouts.navigation')
+
     @yield('content')
 
     @include('shared.footer')
