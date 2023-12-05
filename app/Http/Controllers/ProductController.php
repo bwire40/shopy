@@ -13,7 +13,8 @@ class ProductController extends Controller
     public function index()
     {
         //
-        return view("products.index");
+        $products = Product::orderBy('created_at')->paginate(10);
+        return view("products.index", compact("products"));
     }
 
     /**
@@ -37,15 +38,15 @@ class ProductController extends Controller
             "name" => "required|max:20|min:5",
             "description" => "required|max:100|min:5",
             "price" => "required",
-            "image" => "required|image|mimes:png,jpg|max:5120",
-            "discount" => "min:0",
+
+            "discount" => "min:1",
         ]);
 
 
-        // 2. create image path
+        // // 2. create image path
 
-        $imagePath = time() . '.' . $request->image->extension();
-        $request->image->storeAs('public/images', $imagePath);
+        // $imagePath = time() . '.' . $request->image->extension();
+        // $request->image->move(public_path('image'), $imagePath);
 
         // 3. store the product with user id
 
@@ -53,7 +54,7 @@ class ProductController extends Controller
             "name" => $validated["name"],
             "description" => $validated["description"],
             "price" => $validated["price"],
-            "image" => $imagePath,
+
             "discount" => $validated["discount"],
         ]);
 

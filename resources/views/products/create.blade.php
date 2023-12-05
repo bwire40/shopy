@@ -3,7 +3,8 @@
         <h1 class="text-3xl text-black pb-6 flex justify-start items-center"><x-icons.plus-circle class="mr-3" /> Create
             Product</h1>
 
-        <form method="POST" action="{{ route('products.store') }}" class="p-4 border-2">
+
+        <form method="POST" action="{{ route('products.store') }}" class="p-4 border-2" enctype="multipart/form-data">
             @csrf
 
             <div class="space-y-12">
@@ -46,7 +47,7 @@
                             <label for="price" class="block text-md font-medium leading-6 text-gray-900">Product
                                 price</label>
                             <div class="mt-2">
-                                <input type="number" name="price" id="price" min="0"
+                                <input type="number" name="price" id="price" min="0" value="0"
                                     class="block w-30 rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset
                                      ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600
                                       sm:text-md sm:leading-6">
@@ -60,7 +61,7 @@
                             <label for="discount" class="block text-md font-medium leading-6 text-gray-900">Product
                                 discount</label>
                             <div class="mt-2">
-                                <input type="number" name="discount" id="discount" min="0"
+                                <input type="number" name="discount" id="discount" min="0" value="0"
                                     class="block w-30 rounded-md border-0 py-1.5 text-gray-900 shadow-sm
                                     ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2
                                     focus:ring-inset focus:ring-indigo-600 sm:text-md sm:leading-6">
