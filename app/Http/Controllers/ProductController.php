@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -23,7 +25,8 @@ class ProductController extends Controller
     public function create()
     {
         //
-        return view("products.create");
+        $categories = Category::all();
+        return view("products.create", compact("categories"));
     }
 
     /**
@@ -38,8 +41,8 @@ class ProductController extends Controller
             "name" => "required|max:20|min:5",
             "description" => "required|max:100|min:5",
             "price" => "required",
-
-            "discount" => "min:1",
+            "category" => "required|string",
+            "discount" => "min:1|max:2",
         ]);
 
 
@@ -50,15 +53,21 @@ class ProductController extends Controller
 
         // 3. store the product with user id
 
+        // dump(Model::getIdByName($request->category));
+
+        $category_id = Category::where("name", $validated["category"])->first()->id;
+
+        // dump($category_id);
         $request->user()->products()->create([
             "name" => $validated["name"],
             "description" => $validated["description"],
             "price" => $validated["price"],
-
+            "category" => $validated["category"],
             "discount" => $validated["discount"],
+            "category_id" => $category_id
         ]);
 
-        return redirect()->route("products.index")->with("success", "Successfully Added the product!");
+        return redirect()->route("products.create")->with("success", "Successfully Added the product!");
     }
 
     /**
@@ -67,6 +76,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         //
+        // return view("products.index");
     }
 
     /**

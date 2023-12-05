@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\GuestController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
@@ -27,7 +28,12 @@ Route::get('/contact', [GuestController::class, 'contact'])->name('contact');
 
 // products
 Route::resource('products', ProductController::class)
-    ->only(['index', 'store', 'create'])
+    ->only(['index', 'store', 'create', 'show'])
+    ->middleware(['auth', 'admin', 'verified']);
+
+// categories
+Route::resource('categories', CategoryController::class)
+    ->only(['index', 'store', 'create', 'show', 'destroy'])
     ->middleware(['auth', 'admin', 'verified']);
 
 // Route::get('/products/create', [ProductController::class, 'create'])->name('create');

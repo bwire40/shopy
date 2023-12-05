@@ -1,18 +1,19 @@
 <x-app-layout>
     <main class="w-full flex-grow p-6">
-        <h1 class="text-3xl text-black pb-6">Products</h1>
+        <h1 class="text-3xl text-black pb-6">Categories</h1>
 
 
 
-        <a href="{{ secure_url(route('products.create')) }}"
+        @include('partials.success_message')
+        <a href="{{ secure_url(route('categories.create')) }}"
             class="p-3 bg-slate-900 border-0 text-slate-50 text-sm shadow-lg transition-all duration-300 hover:bg-slate-300 hover:text-slate-900">+
             Add
-            new Product</a>
+            new Category</a>
 
 
         <div class="w-full mt-12">
             <p class="text-xl pb-3 flex items-center">
-                <i class="fas fa-list mr-3"></i> Products In stock
+                <i class="fas fa-list mr-3"></i> Product categories
             </p>
             <div class="bg-white overflow-auto">
 
@@ -127,26 +128,13 @@
                                     </div>
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Product name
+                                    Category name
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Description
+                                    Created by
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Category
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Product Image
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Price
-                                </th>
-                                <th scope="col" class="px-6 py-3">
-                                    Discount
-                                </th>
-
-                                <th scope="col" class="px-6 py-3">
-                                    Updated At
+                                    Updated at
                                 </th>
                                 <th scope="col" class="px-6 py-3 text-right">
                                     Action
@@ -154,7 +142,8 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($products as $product)
+
+                            @foreach ($categories as $category)
                                 <tr
                                     class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                     <td class="w-4 p-4">
@@ -166,34 +155,30 @@
                                     </td>
                                     <th scope="row"
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        {{ $product->name }}
+                                        {{ $category->name }}
                                     </th>
                                     <td class="px-6 py-4">
-                                        {{ $product->description }}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {{ $product->category }}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {{ $product->image }}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        Kshs. {{ $product->price }}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {{ $product->discount }} %
+                                        {{ $category->users->name }}
                                     </td>
 
                                     <td class="px-6 py-4">
-                                        {{ $product->updated_at }}
+                                        {{ $category->updated_at }}
                                     </td>
 
 
                                     <td class="px-6 py-4 text-right flex items-center justify-end">
                                         <a href="#"
                                             class="font-medium text-green-600 dark:text-blue-500 hover:underline mx-2"><x-icons.pencil /></a>
-                                        <a href="#"
-                                            class="font-medium text-red-600 dark:text-blue-500 hover:underline mx-2"><x-icons.trash /></a>
+                                        <form action="{{ secure_url(route('categories.destroy', $category->id)) }}"
+                                            method="post"
+                                            class="font-medium text-red-600 dark:text-blue-500 hover:underline mx-2">
+                                            @csrf
+                                            @method('delete')
+
+                                            <button type="submit">
+                                                <x-icons.trash />
+                                            </button>
+                                        </form>
                                     </td>
 
                                 </tr>
@@ -204,7 +189,7 @@
             </div>
         </div>
         <div class="w-full mt-4">
-            {{ $products->links() }}
+            {{-- {{ $categories->links() }} --}}
         </div>
     </main>
 

@@ -1,7 +1,15 @@
 <x-app-layout>
     <main class="container mx-auto h-screen flex-grow p-6">
-        <h1 class="text-3xl text-black pb-6 flex justify-start items-center"><x-icons.plus-circle class="mr-3" /> Create
+        <a href="{{ secure_url(route('products.index')) }}"
+            class="p-2 bg-slate-900 border-0 text-slate-50 text-sm shadow-lg transition-all duration-300 hover:bg-slate-300 hover:text-slate-900">
+            View Products</a>
+
+
+        @include('partials.success_message')
+        <h1 class="text-3xl text-black pb-6 flex justify-start items-center mt-10"><x-icons.plus-circle class="mr-3" />
+            Create
             Product</h1>
+
 
 
         <form method="POST" action="{{ route('products.store') }}" class="p-4 border-2" enctype="multipart/form-data">
@@ -37,6 +45,27 @@
                                     focus:ring-indigo-600 sm:text-md sm:leading-6"></textarea>
                             </div>
                             @error('description')
+                                <p class="text-red-500 font-semibold py-2">{{ $message }}</p>
+                            @enderror
+                            <p class="mt-3 text-md leading-6 text-gray-600">Write a few sentences about your product.
+                            </p>
+                        </div>
+                        {{-- category --}}
+                        <div class="col-span-full">
+                            <label for="category" class="block text-md font-medium leading-6 text-gray-900">Product
+                                Category</label>
+                            <div class="mt-2">
+                                <select id="category" name="category"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+                                    <option disabled>--Not select--</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->name }}">{{ $category->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            @error('category')
                                 <p class="text-red-500 font-semibold py-2">{{ $message }}</p>
                             @enderror
                             <p class="mt-3 text-md leading-6 text-gray-600">Write a few sentences about your product.
