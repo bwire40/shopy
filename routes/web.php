@@ -28,7 +28,7 @@ Route::get('/contact', [GuestController::class, 'contact'])->name('contact');
 
 // products
 Route::resource('products', ProductController::class)
-    ->only(['index', 'store', 'create', 'show'])
+    ->only(['index', 'store', 'create', 'show', 'destroy'])
     ->middleware(['auth', 'admin', 'verified']);
 
 // categories
